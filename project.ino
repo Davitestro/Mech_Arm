@@ -37,27 +37,28 @@ int meka = 800;    // Acceleration of stepper 1 in steps per second squared
 const int returnToHomePin = 36; // Pin number for the return-to-home button
 
 void setup() {
-
-  pinMode(22,INPUT_PULLUP);
-  pinMode(23,INPUT_PULLUP);
-  pinMode(24,INPUT_PULLUP);
-  pinMode(25,INPUT_PULLUP);
-  pinMode(26,INPUT_PULLUP);
-  pinMode(27,INPUT_PULLUP);
-  pinMode(28,INPUT_PULLUP);
-  pinMode(29,INPUT_PULLUP);
-  pinMode(30,INPUT_PULLUP);
-  pinMode(31,INPUT_PULLUP);
-  pinMode(32,INPUT_PULLUP);
-  pinMode(33,INPUT_PULLUP);
-  pinMode(34,INPUT_PULLUP);
-  pinMode(35,INPUT_PULLUP);
+  // Initialize input pins with pull-up resistors
+  pinMode(22, INPUT_PULLUP);
+  pinMode(23, INPUT_PULLUP);
+  pinMode(24, INPUT_PULLUP);
+  pinMode(25, INPUT_PULLUP);
+  pinMode(26, INPUT_PULLUP);
+  pinMode(27, INPUT_PULLUP);
+  pinMode(28, INPUT_PULLUP);
+  pinMode(29, INPUT_PULLUP);
+  pinMode(30, INPUT_PULLUP);
+  pinMode(31, INPUT_PULLUP);
+  pinMode(32, INPUT_PULLUP);
+  pinMode(33, INPUT_PULLUP);
+  pinMode(34, INPUT_PULLUP);
+  pinMode(35, INPUT_PULLUP);
   pinMode(LED_BUILTIN, OUTPUT);
   
   pinMode(returnToHomePin, INPUT_PULLUP); // Initialize the return-to-home button pin
 
   Serial.begin(9600);
   
+  // Set initial speed and acceleration for each stepper motor
   stepper1.setRunMode(KEEP_SPEED); // speed control mode
   stepper1.setSpeed(mekv); 
   stepper1.setAcceleration(meka); // in degrees/sec
@@ -107,6 +108,7 @@ void loop() {
   }
 
   /////////////////////////////////////////////////////////////////////////
+  // Check inputs from pins 30 and 31 to set zuygE and zuygL
   if ((digitalRead(30) && digitalRead(31))) {
     zuygE = 0;
   } else {
@@ -121,6 +123,7 @@ void loop() {
   }
 
   ///////////////////////////////////////////////////////////////////////////////
+  // Control stepperA based on inputs from pins 26 and 27 and zuygE
   if ((digitalRead(26) && digitalRead(27)) && !zuygE) {
     stepperA.setRunMode(KEEP_SPEED);
     stepperA.setSpeed(Av);
@@ -144,6 +147,7 @@ void loop() {
   //////////////////////////////////////////////////////////
 
   //////////////////////////////////////////////////////////////////
+  // Control stepperB based on inputs from pins 28 and 29 and zuygE
   if ((digitalRead(28) && digitalRead(29)) && !zuygE) {
     stepperB.setRunMode(KEEP_SPEED);
     stepperB.setSpeed(Bv);
@@ -166,7 +170,7 @@ void loop() {
   }
 
   ///////////////////////////////////////////////////////////////////
-
+  // Control stepper3 based on inputs from pins 32 and 33
   if (digitalRead(32) && digitalRead(33)) {
     stepper3.setRunMode(KEEP_SPEED);
     stepper3.setSpeed(ereqv);
@@ -188,7 +192,7 @@ void loop() {
     }
   }
   //////////////////////////////////////////////////////////////////
-
+  // Control stepper2 based on inputs from pins 22 and 23
   if (digitalRead(22) && digitalRead(23)) {
     stepper2.setRunMode(KEEP_SPEED);
     stepper2.setSpeed(erkuv);
@@ -210,7 +214,7 @@ void loop() {
     }
   }
   //////////////////////////////////////////////////////////////////
-
+  // Control stepper1 based on inputs from pins 24 and 25
   if (digitalRead(24) && digitalRead(25)) {
     stepper1.setRunMode(KEEP_SPEED);
     stepper1.setSpeed(mekv);
