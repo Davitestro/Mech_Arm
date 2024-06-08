@@ -2,24 +2,39 @@
 #include <ArduinoJson.h>
 #include <Stepper.h>
 
-GStepper<STEPPER2WIRE> stepper1(800, 8, 9);
-GStepper<STEPPER2WIRE> stepper2(800, 6, 7);
-GStepper<STEPPER2WIRE> stepper3(800, 12, 13);
+// Stepper motor definitions with steps per revolution and control pins
+GStepper<STEPPER2WIRE> stepper1(800, 8, 9);   // Stepper motor 1, 800 steps/rev, controlled by pins 8 and 9
+GStepper<STEPPER2WIRE> stepper2(800, 6, 7);   // Stepper motor 2, 800 steps/rev, controlled by pins 6 and 7
+GStepper<STEPPER2WIRE> stepper3(800, 12, 13); // Stepper motor 3, 800 steps/rev, controlled by pins 12 and 13
+GStepper<STEPPER2WIRE> stepperA(800, 2, 3);   // Stepper motor A, 800 steps/rev, controlled by pins 2 and 3
+GStepper<STEPPER2WIRE> stepperB(800, 4, 5);   // Stepper motor B, 800 steps/rev, controlled by pins 4 and 5
 
-GStepper<STEPPER2WIRE> stepperA(800, 2, 3);
-GStepper<STEPPER2WIRE> stepperB(800, 4, 5);
+// Define constants and variables
+float K = 1000; // A constant used in calculations (not currently used in code)
+int L;          // A general-purpose integer variable (not currently used in code)
 
-float K=1000; int L;
+int s3 = 0;  // A state variable for stepper 3 (not currently used in code)
+int AL;      // A flag indicating the direction of stepper A
+int BL;      // A flag indicating the direction of stepper B
+int ereqL;   // A flag indicating the direction of stepper 3
+int erkuL;   // A flag indicating the direction of stepper 2
+int mekL;    // A flag indicating the direction of stepper 1
+int zuygL;   // A variable indicating the state of inputs 30 and 31
+int zuygE;   // A variable indicating if both inputs 30 and 31 are active
 
-int s3=0; int AL; int BL; int ereqL; int erkuL; int mekL; int zuygL; int zuygE;
+// Speed and acceleration settings for each stepper motor
+int Av = 2000;  // Speed of stepper A in steps per second
+int Aa = 1000;  // Acceleration of stepper A in steps per second squared
+int Bv = 2000;  // Speed of stepper B in steps per second
+int Ba = 1000;  // Acceleration of stepper B in steps per second squared
+int ereqv = 2000;  // Speed of stepper 3 in steps per second
+int ereqa = 800;   // Acceleration of stepper 3 in steps per second squared
+int erkuv = 2000;  // Speed of stepper 2 in steps per second
+int erkua = 800;   // Acceleration of stepper 2 in steps per second squared
+int mekv = 2000;   // Speed of stepper 1 in steps per second
+int meka = 800;    // Acceleration of stepper 1 in steps per second squared
 
-int Av=2000; int Aa=1000;
-int Bv=2000; int Ba=1000;
-int ereqv=2000;  int ereqa=800;
-int erkuv=2000; int erkua=800;
-int mekv=2000; int meka=800;
-
-const int returnToHomePin = 36; // Define a pin for the return-to-home button
+const int returnToHomePin = 36; // Pin number for the return-to-home button
 
 void setup() {
 
