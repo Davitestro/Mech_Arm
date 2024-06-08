@@ -35,7 +35,7 @@ void setup() {
   pinMode(33,INPUT_PULLUP);
   pinMode(34,INPUT_PULLUP);
   pinMode(35,INPUT_PULLUP);
-pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
   
   Serial.begin(9600);
@@ -65,80 +65,187 @@ pinMode(LED_BUILTIN, OUTPUT);
 void loop() {
 
 ///////////////////////////////////////////////////////////////////////////
- if ((digitalRead(30)&& digitalRead(31))) {zuygE=0;} else
- {
-    if (!digitalRead(30)&&digitalRead(31)){ zuygL==0;zuygE=1; }
-    if (!digitalRead(31)&&digitalRead(30)){  zuygL==1;zuygE=1; }
+  if ((digitalRead(30) && digitalRead(31))) 
+  {
+    zuygE=0;
+  }
+  else
+  {
+    if (!digitalRead(30) && digitalRead(31))
+    {
+      zuygL==0;
+      zuygE=1;
     }
+    if (!digitalRead(31) && digitalRead(30))
+    {
+      zuygL==1;
+      zuygE=1;
+    }
+  }
 
 ///////////////////////////////////////////////////////////////////////////
 
     
  ///////////////////////////////////////////////////////////////////////////////   
-  if ((digitalRead(26)&& digitalRead(27)) && !zuygE ) 
-   {stepperA.reset();  stepperA.setRunMode(KEEP_SPEED); 
+  if ((digitalRead(26) && digitalRead(27)) && !zuygE ) 
+  {
+    stepperA.reset();  
+    stepperA.setRunMode(KEEP_SPEED); 
     stepperA.setSpeed(Av); 
-    stepperA. setAcceleration(Aa);} else
+    stepperA.setAcceleration(Aa);
+  } 
 
+  else
+  {
+    if ((!digitalRead(26)&&digitalRead(27)) || (zuygL && zuygE))
     {
-    if ((!digitalRead(26)&&digitalRead(27))|| (zuygL && zuygE)){if (AL==0){AL=1;stepperA.reverse(AL);}stepperA.tick(); }
-    if ((!digitalRead(27)&&digitalRead(26))|| (!zuygL && zuygE)){if (AL==1){AL=0;stepperA.reverse(AL);}stepperA.tick(); }
+      if (AL==0)
+      {
+        AL=1;
+        stepperA.reverse(AL);
+      }
+      stepperA.tick(); 
     }
+    if ((!digitalRead(27)&&digitalRead(26)) || (!zuygL && zuygE))
+    {
+      if (AL==1)
+      {
+        AL=0;
+        stepperA.reverse(AL);
+      }
+      stepperA.tick(); 
+    }
+  }
 //////////////////////////////////////////////////////////
 
 
 
 
 //////////////////////////////////////////////////////////////////
-   if ((digitalRead(28)&& digitalRead(29)) && !zuygE ) 
-   {stepperB.reset();  stepperB.setRunMode(KEEP_SPEED); 
+  if ((digitalRead(28) && digitalRead(29)) && !zuygE ) 
+  {
+    stepperB.reset();
+    stepperB.setRunMode(KEEP_SPEED); 
     stepperB.setSpeed(Bv); 
-    stepperB. setAcceleration(Ba);} else
-
+    stepperB.setAcceleration(Ba);
+  } 
+  else
+  {
+    if ((!digitalRead(28) && digitalRead(29)) || (zuygL && zuygE))
     {
-    if ((!digitalRead(28)&&digitalRead(29))||(zuygL && zuygE)){if (BL==0){BL=1;stepperB.reverse(BL);}stepperB.tick(); }
-    if ((!digitalRead(29)&&digitalRead(28))||(!zuygL && zuygE)){if (BL==1){BL=0;stepperB.reverse(BL);}stepperB.tick(); }
+      if (BL==0)
+      {
+        BL=1;
+        stepperB.reverse(BL);
+      }
+      stepperB.tick();
     }
+    if ((!digitalRead(29) && digitalRead(28))||(!zuygL && zuygE))
+    {
+      if (BL==1)
+      {
+        BL=0;
+        stepperB.reverse(BL);
+      }
+      stepperB.tick();
+    }
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-    if (digitalRead(32)&& digitalRead(33) ) 
-   {stepper3.reset();  stepper3.setRunMode(KEEP_SPEED); 
+  if (digitalRead(32) && digitalRead(33)) 
+  {
+    stepper3.reset();  
+    stepper3.setRunMode(KEEP_SPEED); 
     stepper3.setSpeed(ereqv); 
-    stepper3. setAcceleration(ereqa);} else
-
+    stepper3.setAcceleration(ereqa);
+  }
+  else
+  {
+    if (!digitalRead(32) && digitalRead(33))
     {
-    if (!digitalRead(32)&&digitalRead(33)){if (ereqL==0){ereqL=1;stepper3.reverse(ereqL);}stepper3.tick(); }
-    if (!digitalRead(33)&&digitalRead(32)){if (ereqL==1){ereqL=0;stepper3.reverse(ereqL);}stepper3.tick(); }
+      if (ereqL==0)
+      {
+        ereqL=1;
+        stepper3.reverse(ereqL);
+      }
+      stepper3.tick();
     }
+    if (!digitalRead(33) && digitalRead(32))
+    {
+      if (ereqL==1)
+      {
+        ereqL=0;
+        stepper3.reverse(ereqL);
+      }
+      stepper3.tick();
+    }
+  }
 //////////////////////////////////////////////////////////////////////////
 
 
 ///////////////////////////////////////////////////////////////////
 
-    if (digitalRead(22)&& digitalRead(23) ) 
-   {stepper2.reset();  stepper2.setRunMode(KEEP_SPEED); 
-    stepper2.setSpeed(erkuv); 
-    stepper2. setAcceleration(erkua);} else
-
+  if (digitalRead(22) && digitalRead(23)) 
     {
-    if (!digitalRead(22)&&digitalRead(23)){if (erkuL==0){erkuL=1;stepper2.reverse(erkuL);}stepper2.tick(); }
-    if (!digitalRead(23)&&digitalRead(22)){if (erkuL==1){erkuL=0;stepper2.reverse(erkuL);}stepper2.tick(); }
+      stepper2.reset();
+      stepper2.setRunMode(KEEP_SPEED); 
+      stepper2.setSpeed(erkuv); 
+      stepper2.setAcceleration(erkua);
     }
+  else
+  {
+    if (!digitalRead(22) && digitalRead(23))
+    {
+      if (erkuL==0)
+      {
+        erkuL=1;
+        stepper2.reverse(erkuL);
+      }
+      stepper2.tick();
+      }
+    if (!digitalRead(23) && digitalRead(22))
+    {
+      if (erkuL==1)
+      {
+        erkuL=0;
+        stepper2.reverse(erkuL);
+      }
+      stepper2.tick();
+    }
+  }
 //////////////////////////////////////////////////////////////////////////
 
 
-   ///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-    if (digitalRead(24)&& digitalRead(25) ) 
-   {stepper1.reset();  stepper1.setRunMode(KEEP_SPEED); 
+  if (digitalRead(24) && digitalRead(25) ) 
+  {
+    stepper1.reset();
+    stepper1.setRunMode(KEEP_SPEED); 
     stepper1.setSpeed(mekv); 
-    stepper1. setAcceleration(meka);} else
-
+    stepper1.setAcceleration(meka);
+  } 
+  else
+  {
+    if (!digitalRead(24) && digitalRead(25))
     {
-    if (!digitalRead(24)&&digitalRead(25)){if (mekL==0){mekL=1;stepper1.reverse(mekL);}stepper1.tick(); }
-    if (!digitalRead(25)&&digitalRead(24)){if (mekL==1){mekL=0;stepper1.reverse(mekL);}stepper1.tick(); }
+      if (mekL==0)
+      {
+        mekL=1;
+        stepper1.reverse(mekL);
+      }
+      stepper1.tick();
     }
+    if (!digitalRead(25) && digitalRead(24))
+    {
+      if (mekL==1)
+      {
+        mekL=0;
+        stepper1.reverse(mekL);
+      }
+      stepper1.tick();
+    }
+  }
 ////////////////////////////////////////////////////////////////////////// 
-  
 }
