@@ -1,4 +1,5 @@
 #include <GyverStepper.h>
+#include <ArduinoJson.h>
 #include <Stepper.h>
 
 GStepper<STEPPER2WIRE> stepper1(800, 8, 9);
