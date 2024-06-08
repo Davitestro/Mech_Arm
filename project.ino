@@ -1,4 +1,5 @@
 #include <GyverStepper.h>
+#include <Stepper.h>
 
 GStepper<STEPPER2WIRE> stepper1(800, 8, 9);
 GStepper<STEPPER2WIRE> stepper2(800, 6, 7);
@@ -40,27 +41,27 @@ void setup() {
   
   Serial.begin(9600);
   
-  stepper1.setRunMode(KEEP_SPEED); // режим поддержания скорости
+  stepper1.setRunMode(KEEP_SPEED); // speed control mode
   stepper1.setSpeed(mekv); 
-  stepper1. setAcceleration(meka);// в градусах/сек
+  stepper1. setAcceleration(meka);// in degrees/sec
 
-  stepper3.setRunMode(KEEP_SPEED); // режим поддержания скорости
+  stepper3.setRunMode(KEEP_SPEED); // speed control mode
   stepper3.setSpeed(ereqv); 
-  stepper3. setAcceleration(ereqa);// в градусах/сек
+  stepper3. setAcceleration(ereqa);// in degrees/sec
 
 
-  stepper2.setRunMode(KEEP_SPEED); // режим поддержания скорости
+  stepper2.setRunMode(KEEP_SPEED); // speed control mode
   stepper2.setSpeed(erkuv); 
-  stepper2. setAcceleration(erkua);// в градусах/сек
+  stepper2. setAcceleration(erkua);// in degrees/sec
 
-  stepperA.setRunMode(KEEP_SPEED); // режим поддержания скорости
+  stepperA.setRunMode(KEEP_SPEED); // speed control mode
   stepperA.setSpeed(Av); 
-  stepperA. setAcceleration(Aa);// в градусах/сек 
+  stepperA. setAcceleration(Aa);// in degrees/sec
 
 
-  stepperB.setRunMode(KEEP_SPEED); // режим поддержания скорости
+  stepperB.setRunMode(KEEP_SPEED); // speed control mode
   stepperB.setSpeed(Bv); 
-  stepperB. setAcceleration(Ba);// в градусах/сек
+  stepperB. setAcceleration(Ba);// in degrees/sec
 }
 void loop() {
 
