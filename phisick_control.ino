@@ -1,5 +1,7 @@
+#ifndef PHISIC_CONTROL_H
+#define PHISIC_CONTROL_H
+
 #include <GyverStepper.h>
-#include <ArduinoJson.h>
 #include <Stepper.h>
 
 // Stepper motor definitions with steps per revolution and control pins
@@ -35,8 +37,9 @@ int mekv = 2000;   // Speed of stepper 1 in steps per second
 int meka = 800;    // Acceleration of stepper 1 in steps per second squared
 
 const int returnToHomePin = 36; // Pin number for the return-to-home button
+const int switchModePin = 37 // Pin number for the button where switch controle mode
 
-void setup() {
+void physicalControlSetup() {
   // Initialize input pins with pull-up resistors
   pinMode(22, INPUT_PULLUP);
   pinMode(23, INPUT_PULLUP);
@@ -80,9 +83,9 @@ void setup() {
   stepperB.setAcceleration(Ba); // in degrees/sec
 }
 
-void loop() {
+void physicalControlLoop() {
   // Check if the return-to-home button is pressed
-  if (!digitalRead(returnToHomePin)) {
+  if (digitalRead(returnToHomePin)) {
     // Move all steppers to their initial positions
     stepper1.setRunMode(FOLLOW_POS);
     stepper1.setTarget(0);
@@ -103,11 +106,8 @@ void loop() {
     stepperB.setRunMode(FOLLOW_POS);
     stepperB.setTarget(0);
     stepperB.tick();
-    
-    return; // Skip the rest of the loop
-  }
-
-  /////////////////////////////////////////////////////////////////////////
+  } else {
+/////////////////////////////////////////////////////////////////////////
   // Check inputs from pins 30 and 31 to set zuygE and zuygL
   if ((digitalRead(30) && digitalRead(31))) {
     zuygE = 0;
@@ -236,4 +236,7 @@ void loop() {
     }
   }
   ////////////////////////////////////////////////////////////////////
+  }
 }
+
+#endif
