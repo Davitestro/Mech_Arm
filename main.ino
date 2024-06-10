@@ -1,7 +1,7 @@
 #include "phisick_control.ino"
 #include "phone_control.h"
 
-const int switchPin = 2; // pin where conected switch
+const int switchPin = 11; // pin where conected switch
 
 void setup() {
   // pin modifying

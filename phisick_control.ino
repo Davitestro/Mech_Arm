@@ -36,8 +36,7 @@ int erkua = 800;   // Acceleration of stepper 2 in steps per second squared
 int mekv = 2000;   // Speed of stepper 1 in steps per second
 int meka = 800;    // Acceleration of stepper 1 in steps per second squared
 
-const int returnToHomePin = 36; // Pin number for the return-to-home button
-const int switchModePin = 37 // Pin number for the button where switch controle mode
+const int returnToHomePin = 18; // Pin number for the return-to-home button
 
 void physicalControlSetup() {
   // Initialize input pins with pull-up resistors
