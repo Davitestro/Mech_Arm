@@ -1,8 +1,10 @@
 #ifndef PHISIC_CONTROL_H
 #define PHISIC_CONTROL_H
 
-#include <GyverStepper.h>
-#include <Stepper.h>
+
+#include "GyverLibs-master/GyverStepper/GyverStepper.h"
+#include "Stepper-1.1.3/src/Stepper.h"
+
 
 // Stepper motor definitions with steps per revolution and control pins
 GStepper<STEPPER2WIRE> stepper1(800, 8, 9);   // Stepper motor 1, 800 steps/rev, controlled by pins 8 and 9

@@ -1,5 +1,7 @@
 {
-    "board": "arduino:avr:megaADK",
+    "board": "arduino:avr:mega",
     "port": "COM3",
-    "programmer": "avrisp"
+    "programmer": "avrisp",
+    "sketch": "Mech_Arm.ino",
+    "configuration": "cpu=atmega2560"
 }
